@@ -23,8 +23,8 @@
     
         
     <form action="#" method="post">
-    <select name="Time Slots">
-    <option value="All">All</option>
+    <select name="Times">
+    <option value="all">All</option>
     <option value="morning">Morning</option>
     <option value="afternoon">Afternoon</option>
     <option value="evening">Evening</option>
@@ -35,6 +35,7 @@
     
     <?php
        
+    
     ?>
 
     <?php
@@ -50,11 +51,11 @@
             die("Connection failed: " . $conn->connect_error);
         } 
 
-        $selected_val = "";
+       
     
         if(isset($_POST['submit'])){
             $selected_val = $_POST['Times'];  // Storing Selected Value In Variable
-            echo "You have selected :" .$selected_val;  // Displaying Selected Value
+           // echo "You have selected :" .$selected_val;  // Displaying Selected Value
         }
     
         $sql = "SELECT reservation_num, time, last_name, first_name, seats FROM reservations";
@@ -62,7 +63,7 @@
     
         $current_time = strtotime('now');
        
-        echo "<br><br>";
+        echo "<br>";
     
         if ($result->num_rows > 0) {
             echo '<table cellpadding = "10"><tr bgcolor="#f3d268">';
@@ -71,11 +72,63 @@
             // output data of each row
             while($row = $result->fetch_assoc()) {
             
-                if ($row["time"] > date("h:i:s") )
+                if( $selected_val == "all" )
                 {
-                    echo '';
-                    echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
-                    echo '</tr>';
+                    //if ($row["time"] > date("h:i:s") )
+                   // {
+                        echo '';
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo '</tr>';
+                    //}
+                }
+                else if( $selected_val == "morning" )
+                {
+                    $contractDateBegin = date('h:i:s', strtotime("06:00:00"));
+                    $contractDateEnd = date('h:i:s', strtotime("12:00:00"));
+                    
+                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                    {
+                        echo '';
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo '</tr>';
+                    }
+                }
+                else if( $selected_val == "afternoon" )
+                {
+                    $contractDateBegin = date('h:i:sa', strtotime("12:00:00"));
+                    $contractDateEnd = date('h:i:sa', strtotime("16:00:00"));
+                    echo $contractDateBegin;
+                    echo $contractDateEnd;
+                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                    {
+                        echo '';
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo '</tr>';
+                    }
+                }
+                else if( $selected_val == "evening" )
+                {
+                    $contractDateBegin = date('h:i:s', strtotime("17:00:00"));
+                    $contractDateEnd = date('h:i:s', strtotime("24:00:00"));
+                    
+                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                    {
+                        echo '';
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo '</tr>';
+                    }
+                }
+                else if( $selected_val == "midnight" )
+                {
+                    $contractDateBegin = date('h:i:s', strtotime("24:00:00"));
+                    $contractDateEnd = date('h:i:s', strtotime("06:00:00"));
+                    
+                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                    {
+                        echo '';
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo '</tr>';
+                    }
                 }
             }
             
