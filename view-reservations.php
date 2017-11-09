@@ -73,60 +73,62 @@
             while($row = $result->fetch_assoc()) {
             
                 if( $selected_val == "all" )
-                {
-                    //if ($row["time"] > date("h:i:s") )
-                   // {
-                        echo '';
-                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
-                        echo '</tr>';
-                    //}
+                {  
+                    echo '';
+                    echo "<th> " . $row["reservation_num"]. " </th><th>"  . date('h:i:sa', strtotime($row["time"])). " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                    echo '</tr>';
+             
                 }
                 else if( $selected_val == "morning" )
                 {
-                    $contractDateBegin = date('h:i:s', strtotime("06:00:00"));
-                    $contractDateEnd = date('h:i:s', strtotime("12:00:00"));
+                    $reserv_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime($row["time"])));
+                    $start_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("06:00:00")));
+                    $end_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("12:00:00")));
                     
-                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                    if ($reserv_time > $start_time && $reserv_time < $end_time)
                     {
                         echo '';
-                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . date('h:i:sa', strtotime($row["time"])) . " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
                         echo '</tr>';
                     }
                 }
                 else if( $selected_val == "afternoon" )
-                {
-                    $contractDateBegin = date('h:i:sa', strtotime("12:00:00"));
-                    $contractDateEnd = date('h:i:sa', strtotime("16:00:00"));
-                    echo $contractDateBegin;
-                    echo $contractDateEnd;
-                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                {  
+                    $reserv_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime($row["time"])));
+                    $start_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("12:00:00")));
+                    $end_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("16:00:00")));
+                    
+                    if ($reserv_time > $start_time && $reserv_time < $end_time)
                     {
                         echo '';
-                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . date('h:i:sa', strtotime($row["time"])). " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
                         echo '</tr>';
                     }
                 }
                 else if( $selected_val == "evening" )
                 {
-                    $contractDateBegin = date('h:i:s', strtotime("17:00:00"));
-                    $contractDateEnd = date('h:i:s', strtotime("24:00:00"));
+                    $reserv_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime($row["time"])));
+                    $start_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("17:00:00")));
+                    $end_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("23:00:00")));
                     
-                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                
+                    if ($reserv_time > $start_time && $reserv_time < $end_time)
                     {
                         echo '';
-                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . date('h:i:sa', strtotime($row["time"])). " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
                         echo '</tr>';
                     }
                 }
                 else if( $selected_val == "midnight" )
                 {
-                    $contractDateBegin = date('h:i:s', strtotime("24:00:00"));
-                    $contractDateEnd = date('h:i:s', strtotime("06:00:00"));
+                    $reserv_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime($row["time"])));
+                    $start_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("24:00:00")));
+                    $end_time = DateTime::createFromFormat('H:i a', date('h:i:sa', strtotime("06:00:00")));
                     
-                    if (($contractDateBegin < $row["time"]) && ($contractDateEnd > $row["time"]))
+                    if ($reserv_time > $start_time && $reserv_time < $end_time)
                     {
                         echo '';
-                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . $row["time"]. " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
+                        echo "<th> " . $row["reservation_num"]. " </th><th>"  . date('h:i:sa', strtotime($row["time"])). " </th><th>" . $row["last_name"]. " </th><th>" . $row["first_name"]. " </th><th>" . $row["seats"]. "</th><tr>" ;
                         echo '</tr>';
                     }
                 }

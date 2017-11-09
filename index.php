@@ -43,8 +43,6 @@
                 if( $row["availablility"] == TRUE)
                 {
                     echo '';
-                   // echo $row["availablility"];
-                   // echo "<th>" . $row["id"]. " - " . $row["table_type"]. " - Seats: " . $row["seats"]. "<br>";
                     echo "<th> No. " . $row["id"]. " </th><th> " . $row["table_type"]. " </th><th>" . $row["seats"]. "</th><tr>";
                     echo '</tr>';
                 }
